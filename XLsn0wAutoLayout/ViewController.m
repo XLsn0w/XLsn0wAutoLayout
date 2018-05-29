@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "XLsn0wMakeConstraints.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    UIView *view = [UIView new];
+    [self.view addSubview:view];
+    view.backgroundColor = UIColor.redColor;
+    view.makeConstraints.centerXEqualToView(self.view).centerYEqualToView(self.view).widthIs(200).heightIs(200);
+    
+    UIView *view1 = [UIView new];
+    [self.view addSubview:view1];
+    view1.backgroundColor = UIColor.blueColor;
+    view1.makeConstraints.leftSpaceToView(self.view, 50).bottomSpaceToView(self.view, 50).widthIs(50).heightIs(50);
 }
 
 

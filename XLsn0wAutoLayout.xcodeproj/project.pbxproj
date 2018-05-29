@@ -15,6 +15,9 @@
 		35BF737820B92E1C00C9DBB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF737720B92E1C00C9DBB3 /* main.m */; };
 		35BF738220B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF738120B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests.m */; };
 		35BF738D20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF738C20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m */; };
+		CDB677AE20BD41FF00726A17 /* UIView+MakeConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */; };
+		CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */; };
+		CDB677B720BD459500726A17 /* XLsn0wConstraintsSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,13 @@
 		35BF738820B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XLsn0wAutoLayoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BF738C20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wAutoLayoutUITests.m; sourceTree = "<group>"; };
 		35BF738E20B92E1C00C9DBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDB677AC20BD41FE00726A17 /* UIView+MakeConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MakeConstraints.h"; sourceTree = "<group>"; };
+		CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MakeConstraints.m"; sourceTree = "<group>"; };
+		CDB677B220BD44BB00726A17 /* XLsn0wConstraintsMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintsMaker.h; sourceTree = "<group>"; };
+		CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wConstraintsMaker.m; sourceTree = "<group>"; };
+		CDB677B520BD459500726A17 /* XLsn0wConstraintsSizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintsSizer.h; sourceTree = "<group>"; };
+		CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wConstraintsSizer.m; sourceTree = "<group>"; };
+		CDB677B820BD4C2800726A17 /* XLsn0wMakeConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wMakeConstraints.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +91,7 @@
 		35BF735C20B92E1A00C9DBB3 = {
 			isa = PBXGroup;
 			children = (
+				CDB677A120BD3A1500726A17 /* XLsn0wMakeConstraints */,
 				35BF736720B92E1B00C9DBB3 /* XLsn0wAutoLayout */,
 				35BF738020B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests */,
 				35BF738B20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests */,
@@ -130,6 +141,44 @@
 				35BF738E20B92E1C00C9DBB3 /* Info.plist */,
 			);
 			path = XLsn0wAutoLayoutUITests;
+			sourceTree = "<group>";
+		};
+		CD8B6AE520BD53EC00183C96 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CDB677AC20BD41FE00726A17 /* UIView+MakeConstraints.h */,
+				CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CD8B6AE620BD5A9500183C96 /* XLsn0wConstraintsMaker */ = {
+			isa = PBXGroup;
+			children = (
+				CDB677B220BD44BB00726A17 /* XLsn0wConstraintsMaker.h */,
+				CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */,
+			);
+			path = XLsn0wConstraintsMaker;
+			sourceTree = "<group>";
+		};
+		CD8B6AE720BD5A9F00183C96 /* XLsn0wConstraintsSizer */ = {
+			isa = PBXGroup;
+			children = (
+				CDB677B520BD459500726A17 /* XLsn0wConstraintsSizer.h */,
+				CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */,
+			);
+			path = XLsn0wConstraintsSizer;
+			sourceTree = "<group>";
+		};
+		CDB677A120BD3A1500726A17 /* XLsn0wMakeConstraints */ = {
+			isa = PBXGroup;
+			children = (
+				CDB677B820BD4C2800726A17 /* XLsn0wMakeConstraints.h */,
+				CD8B6AE520BD53EC00183C96 /* Extensions */,
+				CD8B6AE620BD5A9500183C96 /* XLsn0wConstraintsMaker */,
+				CD8B6AE720BD5A9F00183C96 /* XLsn0wConstraintsSizer */,
+			);
+			path = XLsn0wMakeConstraints;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,7 +313,10 @@
 			files = (
 				35BF736D20B92E1B00C9DBB3 /* ViewController.m in Sources */,
 				35BF737820B92E1C00C9DBB3 /* main.m in Sources */,
+				CDB677B720BD459500726A17 /* XLsn0wConstraintsSizer.m in Sources */,
+				CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */,
 				35BF736A20B92E1B00C9DBB3 /* AppDelegate.m in Sources */,
+				CDB677AE20BD41FF00726A17 /* UIView+MakeConstraints.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
