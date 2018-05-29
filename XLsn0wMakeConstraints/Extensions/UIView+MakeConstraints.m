@@ -2,6 +2,7 @@
 #import "UIView+MakeConstraints.h"
 #import "XLsn0wMakeConstraints.h"
 #import "XLsn0wConstraintsMaker.h"
+
 #import <objc/runtime.h>
 
 @implementation UIView (MakeConstraints)
@@ -250,7 +251,7 @@
 //    if (!view || view.sd_isClosingAutoLayout) return;
     
     if (view.sd_maxWidth && (model.rightSpaceToView || model.rightEqualToView)) { // 靠右布局前提设置
-        [self layoutAutoWidthWidthView:view model:model];
+  
         view.fixedWidth = @(view.width_sd);
     }
     
@@ -263,7 +264,7 @@
     [self layoutRightWithView:view model:model];
     
     if (view.autoHeightRatioValue && view.width_sd > 0 && (model.bottomEqualToView || model.bottomSpaceToView)) { // 底部布局前提设置
-        [self layoutAutoHeightWidthView:view model:model];
+
         view.fixedHeight = @(view.height_sd);
     }
     
@@ -276,9 +277,7 @@
     
     [self layoutBottomWithView:view model:model];
     
-    if (view.sd_maxWidth) {
-        [self layoutAutoWidthWidthView:view model:model];
-    }
+
     
     if (model.maxWidth && [model.maxWidth floatValue] < view.width_sd) {
         view.width_sd = [model.maxWidth floatValue];
@@ -287,10 +286,7 @@
     if (model.minWidth && [model.minWidth floatValue] > view.width_sd) {
         view.width_sd = [model.minWidth floatValue];
     }
-    
-    if (view.autoHeightRatioValue && view.width_sd > 0) {
-        [self layoutAutoHeightWidthView:view model:model];
-    }
+
     
     if (model.maxHeight && [model.maxHeight floatValue] < view.height_sd) {
         view.height_sd = [model.maxHeight floatValue];
@@ -317,57 +313,7 @@
     [self setupCornerRadiusWithView:view model:model];
 }
 
-- (void)layoutAutoHeightWidthView:(UIView *)view model:(XLsn0wConstraintsMaker *)model
-{
-    if ([view.autoHeightRatioValue floatValue] > 0) {
-        view.height_sd = view.width_sd * [view.autoHeightRatioValue floatValue];
-    } else {
-        if ([view isKindOfClass:[UILabel class]]) {
-            UILabel *label = (UILabel *)view;
-            label.numberOfLines = 0;
-            if (label.text.length) {
-                if (!label.isAttributedContent) {
-                    CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.width_sd, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                    label.height_sd = rect.size.height + 0.1;
-                } else {
-                    [label sizeToFit];
-                    if (label.sd_maxWidth && label.width_sd > [label.sd_maxWidth floatValue]) {
-                        label.width_sd = [label.sd_maxWidth floatValue];
-                    }
-                }
-            } else {
-                label.height_sd = 0;
-            }
-        } else {
-            view.height_sd = 0;
-        }
-    }
-}
 
-- (void)layoutAutoWidthWidthView:(UIView *)view model:(XLsn0wConstraintsMaker *)model
-{
-    if ([view isKindOfClass:[UILabel class]]) {
-        UILabel *label = (UILabel *)view;
-        CGFloat width = [view.sd_maxWidth floatValue] > 0 ? [view.sd_maxWidth floatValue] : MAXFLOAT;
-        label.numberOfLines = 1;
-        if (label.text.length) {
-            if (!label.isAttributedContent) {
-                CGRect rect = [label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, label.height_sd) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                if (rect.size.width > width) {
-                    rect.size.width = width;
-                }
-                label.width_sd = rect.size.width + 0.1;
-            } else{
-                [label sizeToFit];
-                if (label.width_sd > width) {
-                    label.width_sd = width;
-                }
-            }
-        } else {
-            label.size_sd = CGSizeZero;
-        }
-    }
-}
 
 - (void)layoutWidthWithView:(UIView *)view model:(XLsn0wConstraintsMaker *)model
 {
@@ -549,9 +495,7 @@
     }
 }
 
-
-- (void)setupCornerRadiusWithView:(UIView *)view model:(XLsn0wConstraintsMaker *)model
-{
+- (void)setupCornerRadiusWithView:(UIView *)view model:(XLsn0wConstraintsMaker *)model {
     CGFloat cornerRadius = view.layer.cornerRadius;
     CGFloat newCornerRadius = 0;
     
@@ -574,186 +518,15 @@
     [self.autoLayoutModelsArray addObject:model];
 }
 
-@end
-
-@implementation UIView (SDLayoutExtention)
-
-- (void (^)(CGRect))didFinishAutoLayoutBlock
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setDidFinishAutoLayoutBlock:(void (^)(CGRect))didFinishAutoLayoutBlock
-{
-    objc_setAssociatedObject(self, @selector(didFinishAutoLayoutBlock), didFinishAutoLayoutBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (NSNumber *)sd_cornerRadius
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_cornerRadius:(NSNumber *)sd_cornerRadius
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadius), sd_cornerRadius, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
-- (NSNumber *)sd_cornerRadiusFromWidthRatio
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_cornerRadiusFromWidthRatio:(NSNumber *)sd_cornerRadiusFromWidthRatio
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromWidthRatio), sd_cornerRadiusFromWidthRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
-- (NSNumber *)sd_cornerRadiusFromHeightRatio
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_cornerRadiusFromHeightRatio:(NSNumber *)sd_cornerRadiusFromHeightRatio
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromHeightRatio), sd_cornerRadiusFromHeightRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSArray *)sd_equalWidthSubviews
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_equalWidthSubviews:(NSArray *)sd_equalWidthSubviews
-{
-    objc_setAssociatedObject(self, @selector(sd_equalWidthSubviews), sd_equalWidthSubviews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)sd_addSubviews:(NSArray *)subviews
-{
-    [subviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        if ([view isKindOfClass:[UIView class]]) {
-            [self addSubview:view];
-        }
-    }];
-}
-
-@end
-
-
-
-
-@implementation UILabel (SDLabelAutoResize)
-
-+ (void)load
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        NSArray *selStringsArray = @[@"setText:"];
-        
-        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
-            NSString *mySelString = [@"sd_" stringByAppendingString:selString];
-            
-            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
-            Method myMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
-            method_exchangeImplementations(originalMethod, myMethod);
-        }];
-    });
-}
-
-- (void)sd_setText:(NSString *)text
-{
-    // 如果程序崩溃在这行代码说明是你的label在执行“setText”方法时出了问题而不是在此自动布局库内部出现了问题，请检查你的“setText”方法
-    [self sd_setText:text];
-    
-    
-    if (self.sd_maxWidth) {
-        [self sizeToFit];
-    } else if (self.autoHeightRatioValue) {
-        self.size_sd = CGSizeZero;
-    }
-}
-
-- (BOOL)isAttributedContent
-{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
-}
-
-- (void)setIsAttributedContent:(BOOL)isAttributedContent
-{
-    objc_setAssociatedObject(self, @selector(isAttributedContent), @(isAttributedContent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setSingleLineAutoResizeWithMaxWidth:(CGFloat)maxWidth
-{
-    self.sd_maxWidth = @(maxWidth);
-}
-
-- (void)setMaxNumberOfLinesToShow:(NSInteger)lineCount
-{
-    NSAssert(self.ownLayoutModel, @"请在布局完成之后再做此步设置！");
-    if (lineCount > 0) {
-        if (self.isAttributedContent) {
-            NSDictionary *attrs = [self.attributedText attributesAtIndex:0 effectiveRange:nil];
-            NSMutableParagraphStyle *paragraphStyle = attrs[NSParagraphStyleAttributeName];
-            self.makeConstraints.maxHeightIs((self.font.lineHeight) * lineCount + paragraphStyle.lineSpacing * (lineCount - 1) + 0.1);
-        } else {
-            self.makeConstraints.maxHeightIs(self.font.lineHeight * lineCount + 0.1);
-        }
-    } else {
-        self.makeConstraints.maxHeightIs(MAXFLOAT);
-    }
-}
-
-@end
-
-@implementation UIButton (SDExtention)
-
-- (void)setupAutoSizeWithHorizontalPadding:(CGFloat)hPadding buttonHeight:(CGFloat)buttonHeight
-{
-    self.fixedHeight = @(buttonHeight);
-    
-    self.titleLabel.makeConstraints
-    .leftSpaceToView(self, hPadding)
-    .topEqualToView(self)
-    .heightIs(buttonHeight);
-    
-    [self.titleLabel setSingleLineAutoResizeWithMaxWidth:MAXFLOAT];
-}
-
-@end
-
-@implementation UIButton (SDAutoLayoutButton)
-
-+ (void)load
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *selString = @"layoutSubviews";
-        NSString *mySelString = [@"sd_button_" stringByAppendingString:selString];
-        
-        Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
-        Method myMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
-        method_exchangeImplementations(originalMethod, myMethod);
-    });
-}
-
-- (void)sd_button_layoutSubviews
-{
-    // 如果程序崩溃在这行代码说明是你的view在执行“layoutSubvies”方法时出了问题而不是在此自动布局库内部出现了问题，请检查你的“layoutSubvies”方法
-    [self sd_button_layoutSubviews];
-    
-    [self sd_layoutSubviewsHandle];
-    
-}
-
-@end
-
-
-@implementation UIView (SDChangeFrame)
-
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
+/*****************************************************************************************************************/
 
 - (CGFloat)left_sd {
     return self.frame.origin.x;
@@ -967,9 +740,66 @@
     return self.size_sd;
 }
 
+- (void (^)(CGRect))didFinishAutoLayoutBlock
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setDidFinishAutoLayoutBlock:(void (^)(CGRect))didFinishAutoLayoutBlock
+{
+    objc_setAssociatedObject(self, @selector(didFinishAutoLayoutBlock), didFinishAutoLayoutBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSNumber *)sd_cornerRadius
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setSd_cornerRadius:(NSNumber *)sd_cornerRadius
+{
+    objc_setAssociatedObject(self, @selector(sd_cornerRadius), sd_cornerRadius, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+- (NSNumber *)sd_cornerRadiusFromWidthRatio
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setSd_cornerRadiusFromWidthRatio:(NSNumber *)sd_cornerRadiusFromWidthRatio
+{
+    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromWidthRatio), sd_cornerRadiusFromWidthRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+- (NSNumber *)sd_cornerRadiusFromHeightRatio
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setSd_cornerRadiusFromHeightRatio:(NSNumber *)sd_cornerRadiusFromHeightRatio
+{
+    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromHeightRatio), sd_cornerRadiusFromHeightRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSArray *)sd_equalWidthSubviews
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setSd_equalWidthSubviews:(NSArray *)sd_equalWidthSubviews
+{
+    objc_setAssociatedObject(self, @selector(sd_equalWidthSubviews), sd_equalWidthSubviews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)sd_addSubviews:(NSArray *)subviews
+{
+    [subviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        if ([view isKindOfClass:[UIView class]]) {
+            [self addSubview:view];
+        }
+    }];
+}
+
+
 @end
-
-@implementation SDUIViewCategoryManager
-
-@end
-
