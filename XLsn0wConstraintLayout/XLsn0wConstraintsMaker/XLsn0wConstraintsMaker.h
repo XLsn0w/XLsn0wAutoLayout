@@ -6,21 +6,22 @@
 
 @property (nonatomic, strong) NSNumber *value;
 @property (nonatomic, weak)   UIView   *refView;
-@property (nonatomic, assign) CGFloat   offset;
 @property (nonatomic, strong) NSArray  *refViewsArray;
+@property (nonatomic, assign) CGFloat   offset;
 
 @end
 
-@class  XLsn0wConstraintsMaker, XLsn0wConstraintsSizer;
+@class  XLsn0wConstraintsMaker;
 
 typedef XLsn0wConstraintsMaker *(^MarginToView)(id referenceView, CGFloat value);
 typedef XLsn0wConstraintsMaker *(^Margin)(CGFloat value);
-typedef XLsn0wConstraintsMaker *(^MarginEqualToView)(UIView *toView);
+typedef XLsn0wConstraintsMaker *(^MarginEqualToView)(UIView *equalView);
 typedef XLsn0wConstraintsMaker *(^WidthHeight)(CGFloat value);
 typedef XLsn0wConstraintsMaker *(^WidthHeightEqualToView)(UIView *toView, CGFloat ratioValue);
 typedef XLsn0wConstraintsMaker *(^AutoHeightWidth)(CGFloat ratioValue);
 typedef XLsn0wConstraintsMaker *(^SameWidthHeight)(void);
 typedef XLsn0wConstraintsMaker *(^Offset)(CGFloat value);
+
 typedef void (^SpaceToSuperView)(UIEdgeInsets insets);
 
 @interface XLsn0wConstraintsMaker : NSObject
