@@ -3,11 +3,9 @@
 
 @class XLsn0wConstraintsMaker;
 
-#pragma mark - UIView 设置约束、更新约束、清空约束、从父view移除并清空约束、开启cell的frame缓存等相关方法
-
 @interface UIView (MakeConstraints)
 
-///Make Constraints To Layout
+#pragma mark - Make Constraints To Layout
 - (XLsn0wConstraintsMaker *)make;
 
 - (XLsn0wConstraintsMaker *)resetConstraints;
