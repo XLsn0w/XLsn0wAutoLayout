@@ -2,9 +2,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class  XLsn0wConstraintsMaker, SDUIViewCategoryManager, XLsn0wConstraintsSizer;
+@interface XLsn0wConstraintsSizer : NSObject
 
-typedef XLsn0wConstraintsMaker *(^MarginToView)(id viewOrViewsArray, CGFloat value);
+@property (nonatomic, strong) NSNumber *value;
+@property (nonatomic, weak)   UIView   *refView;
+@property (nonatomic, assign) CGFloat   offset;
+@property (nonatomic, strong) NSArray  *refViewsArray;
+
+@end
+
+@class  XLsn0wConstraintsMaker, XLsn0wConstraintsSizer;
+
+typedef XLsn0wConstraintsMaker *(^MarginToView)(id referenceView, CGFloat value);
 typedef XLsn0wConstraintsMaker *(^Margin)(CGFloat value);
 typedef XLsn0wConstraintsMaker *(^MarginEqualToView)(UIView *toView);
 typedef XLsn0wConstraintsMaker *(^WidthHeight)(CGFloat value);
@@ -16,29 +25,13 @@ typedef void (^SpaceToSuperView)(UIEdgeInsets insets);
 
 @interface XLsn0wConstraintsMaker : NSObject
 
-/*
- *************************说明************************
- 
- 方法名中带有“SpaceToView”的需要传递2个参数：（UIView）参照view 和 （CGFloat）间距数值
- 方法名中带有“RatioToView”的需要传递2个参数：（UIView）参照view 和 （CGFloat）倍数
- 方法名中带有“EqualToView”的需要传递1个参数：（UIView）参照view
- 方法名中带有“Is”的需要传递1个参数：（CGFloat）数值
- 
- *****************************************************
- */
+@property (nonatomic, copy, readonly) MarginToView topValue;
+@property (nonatomic, copy, readonly) MarginToView bottomValue;
+@property (nonatomic, copy, readonly) MarginToView leftValue;
+@property (nonatomic, copy, readonly) MarginToView rightValue;
 
-
-/* 设置距离其它view的间距 */
-
-/** 左边到其参照view之间的间距，参数为“(View 或者 view数组, CGFloat)”  */
-@property (nonatomic, copy, readonly) MarginToView leftSpaceToView;
-/** 右边到其参照view之间的间距，参数为“(View, CGFloat)”  */
-@property (nonatomic, copy, readonly) MarginToView rightSpaceToView;
-/** 顶部到其参照view之间的间距，参数为“(View 或者 view数组, CGFloat)”  */
-@property (nonatomic, copy, readonly) MarginToView topSpaceToView;
-/** 底部到其参照view之间的间距，参数为“(View, CGFloat)”  */
-@property (nonatomic, copy, readonly) MarginToView bottomSpaceToView;
-
+@property (nonatomic, copy, readonly) WidthHeight widthValue;
+@property (nonatomic, copy, readonly) WidthHeight heightValue;
 
 
 /* 设置x、y、width、height、centerX、centerY 值 */
@@ -51,10 +44,7 @@ typedef void (^SpaceToSuperView)(UIEdgeInsets insets);
 @property (nonatomic, copy, readonly) Margin centerXIs;
 /** centerY值，参数为“(CGFloat)”  */
 @property (nonatomic, copy, readonly) Margin centerYIs;
-/** 宽度值，参数为“(CGFloat)”  */
-@property (nonatomic, copy, readonly) WidthHeight widthIs;
-/** 高度值，参数为“(CGFloat)”  */
-@property (nonatomic, copy, readonly) WidthHeight heightIs;
+
 
 
 
@@ -74,17 +64,17 @@ typedef void (^SpaceToSuperView)(UIEdgeInsets insets);
 /* 设置和某个参照view的边距相同 */
 
 /** 左间距与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView leftEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView left_equalTo;
 /** 右间距与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView rightEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView right_equalTo;
 /** 顶部间距与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView topEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView top_equalTo;
 /** 底部间距与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView bottomEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView bottom_equalTo;
 /** centerX与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView centerXEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView centerX_equalTo;
 /** centerY与参照view相同，参数为“(View)”  */
-@property (nonatomic, copy, readonly) MarginEqualToView centerYEqualToView;
+@property (nonatomic, copy, readonly) MarginEqualToView centerY_equalTo;
 
 
 

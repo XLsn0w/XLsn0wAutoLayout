@@ -17,7 +17,6 @@
 		35BF738D20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF738C20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m */; };
 		CDB677AE20BD41FF00726A17 /* UIView+MakeConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */; };
 		CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */; };
-		CDB677B720BD459500726A17 /* XLsn0wConstraintsSizer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +57,7 @@
 		CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MakeConstraints.m"; sourceTree = "<group>"; };
 		CDB677B220BD44BB00726A17 /* XLsn0wConstraintsMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintsMaker.h; sourceTree = "<group>"; };
 		CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wConstraintsMaker.m; sourceTree = "<group>"; };
-		CDB677B520BD459500726A17 /* XLsn0wConstraintsSizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintsSizer.h; sourceTree = "<group>"; };
-		CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wConstraintsSizer.m; sourceTree = "<group>"; };
-		CDB677B820BD4C2800726A17 /* XLsn0wMakeConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wMakeConstraints.h; sourceTree = "<group>"; };
+		CDEF44DE20BE3567003E9680 /* XLsn0wConstraintLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintLayout.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +88,7 @@
 		35BF735C20B92E1A00C9DBB3 = {
 			isa = PBXGroup;
 			children = (
-				CDB677A120BD3A1500726A17 /* XLsn0wMakeConstraints */,
+				CDB677A120BD3A1500726A17 /* XLsn0wConstraintLayout */,
 				35BF736720B92E1B00C9DBB3 /* XLsn0wAutoLayout */,
 				35BF738020B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests */,
 				35BF738B20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests */,
@@ -143,13 +140,13 @@
 			path = XLsn0wAutoLayoutUITests;
 			sourceTree = "<group>";
 		};
-		CD8B6AE520BD53EC00183C96 /* Extensions */ = {
+		CD8B6AE520BD53EC00183C96 /* MakeConstraints */ = {
 			isa = PBXGroup;
 			children = (
 				CDB677AC20BD41FE00726A17 /* UIView+MakeConstraints.h */,
 				CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */,
 			);
-			path = Extensions;
+			path = MakeConstraints;
 			sourceTree = "<group>";
 		};
 		CD8B6AE620BD5A9500183C96 /* XLsn0wConstraintsMaker */ = {
@@ -161,24 +158,14 @@
 			path = XLsn0wConstraintsMaker;
 			sourceTree = "<group>";
 		};
-		CD8B6AE720BD5A9F00183C96 /* XLsn0wConstraintsSizer */ = {
+		CDB677A120BD3A1500726A17 /* XLsn0wConstraintLayout */ = {
 			isa = PBXGroup;
 			children = (
-				CDB677B520BD459500726A17 /* XLsn0wConstraintsSizer.h */,
-				CDB677B620BD459500726A17 /* XLsn0wConstraintsSizer.m */,
-			);
-			path = XLsn0wConstraintsSizer;
-			sourceTree = "<group>";
-		};
-		CDB677A120BD3A1500726A17 /* XLsn0wMakeConstraints */ = {
-			isa = PBXGroup;
-			children = (
-				CDB677B820BD4C2800726A17 /* XLsn0wMakeConstraints.h */,
-				CD8B6AE520BD53EC00183C96 /* Extensions */,
+				CDEF44DE20BE3567003E9680 /* XLsn0wConstraintLayout.h */,
 				CD8B6AE620BD5A9500183C96 /* XLsn0wConstraintsMaker */,
-				CD8B6AE720BD5A9F00183C96 /* XLsn0wConstraintsSizer */,
+				CD8B6AE520BD53EC00183C96 /* MakeConstraints */,
 			);
-			path = XLsn0wMakeConstraints;
+			path = XLsn0wConstraintLayout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,7 +300,6 @@
 			files = (
 				35BF736D20B92E1B00C9DBB3 /* ViewController.m in Sources */,
 				35BF737820B92E1C00C9DBB3 /* main.m in Sources */,
-				CDB677B720BD459500726A17 /* XLsn0wConstraintsSizer.m in Sources */,
 				CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */,
 				35BF736A20B92E1B00C9DBB3 /* AppDelegate.m in Sources */,
 				CDB677AE20BD41FF00726A17 /* UIView+MakeConstraints.m in Sources */,

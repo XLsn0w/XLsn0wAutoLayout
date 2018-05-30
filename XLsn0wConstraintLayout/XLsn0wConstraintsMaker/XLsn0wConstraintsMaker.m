@@ -1,24 +1,37 @@
 
 #import "XLsn0wConstraintsMaker.h"
-#import "XLsn0wConstraintsSizer.h"
 #import "UIView+MakeConstraints.h"
+
+@implementation XLsn0wConstraintsSizer
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _offset = 0;
+    }
+    return self;
+}
+
+@end
 
 @implementation XLsn0wConstraintsMaker
 
-@synthesize leftSpaceToView = _leftSpaceToView;
-@synthesize rightSpaceToView = _rightSpaceToView;
-@synthesize topSpaceToView = _topSpaceToView;
-@synthesize bottomSpaceToView = _bottomSpaceToView;
-@synthesize widthIs = _widthIs;
-@synthesize heightIs = _heightIs;
+@synthesize leftValue = _leftValue;
+@synthesize rightValue = _rightValue;
+@synthesize topValue = _topValue;
+@synthesize bottomValue = _bottomValue;
+@synthesize widthValue = _widthValue;
+@synthesize heightValue = _heightValue;
+
 @synthesize widthRatioToView = _widthRatioToView;
 @synthesize heightRatioToView = _heightRatioToView;
-@synthesize leftEqualToView = _leftEqualToView;
-@synthesize rightEqualToView = _rightEqualToView;
-@synthesize topEqualToView = _topEqualToView;
-@synthesize bottomEqualToView = _bottomEqualToView;
-@synthesize centerXEqualToView = _centerXEqualToView;
-@synthesize centerYEqualToView = _centerYEqualToView;
+
+@synthesize left_equalTo = _left_equalTo;
+@synthesize right_equalTo = _right_equalTo;
+@synthesize top_equalTo = _top_equalTo;
+@synthesize bottom_equalTo = _bottom_equalTo;
+@synthesize centerX_equalTo = _centerX_equalTo;
+@synthesize centerY_equalTo = _centerY_equalTo;
+
 @synthesize xIs = _xIs;
 @synthesize yIs = _yIs;
 @synthesize centerXIs = _centerXIs;
@@ -35,36 +48,35 @@
 @synthesize offset = _offset;
 
 
-- (MarginToView)leftSpaceToView
-{
-    if (!_leftSpaceToView) {
-        _leftSpaceToView = [self marginToViewblockWithKey:@"left"];
+- (MarginToView)leftValue {
+    if (!_leftValue) {
+        _leftValue = [self marginToViewblockWithKey:@"left"];
     }
-    return _leftSpaceToView;
+    return _leftValue;
 }
 
-- (MarginToView)rightSpaceToView
+- (MarginToView)rightValue
 {
-    if (!_rightSpaceToView) {
-        _rightSpaceToView = [self marginToViewblockWithKey:@"right"];
+    if (!_rightValue) {
+        _rightValue = [self marginToViewblockWithKey:@"right"];
     }
-    return _rightSpaceToView;
+    return _rightValue;
 }
 
-- (MarginToView)topSpaceToView
+- (MarginToView)topValue
 {
-    if (!_topSpaceToView) {
-        _topSpaceToView = [self marginToViewblockWithKey:@"top"];
+    if (!_topValue) {
+        _topValue = [self marginToViewblockWithKey:@"top"];
     }
-    return _topSpaceToView;
+    return _topValue;
 }
 
 - (MarginToView)bottomSpaceToView
 {
-    if (!_bottomSpaceToView) {
-        _bottomSpaceToView = [self marginToViewblockWithKey:@"bottom"];
+    if (!_bottomValue) {
+        _bottomValue = [self marginToViewblockWithKey:@"bottom"];
     }
-    return _bottomSpaceToView;
+    return _bottomValue;
 }
 
 - (MarginToView)marginToViewblockWithKey:(NSString *)key
@@ -83,11 +95,11 @@
     };
 }
 
-- (WidthHeight)widthIs
+- (WidthHeight)widthValue
 {
-    if (!_widthIs) {
+    if (!_widthValue) {
         __weak typeof(self) weakSelf = self;
-        _widthIs = ^(CGFloat value) {
+        _widthValue = ^(CGFloat value) {
             weakSelf.needsAutoResizeView.fixedWidth = @(value);
             XLsn0wConstraintsSizer *widthItem = [XLsn0wConstraintsSizer new];
             widthItem.value = @(value);
@@ -95,14 +107,14 @@
             return weakSelf;
         };
     }
-    return _widthIs;
+    return _widthValue;
 }
 
-- (WidthHeight)heightIs
+- (WidthHeight)heightValue
 {
-    if (!_heightIs) {
+    if (!_heightValue) {
         __weak typeof(self) weakSelf = self;
-        _heightIs = ^(CGFloat value) {
+        _heightValue = ^(CGFloat value) {
             weakSelf.needsAutoResizeView.fixedHeight = @(value);
             XLsn0wConstraintsSizer *heightItem = [XLsn0wConstraintsSizer new];
             heightItem.value = @(value);
@@ -110,7 +122,7 @@
             return weakSelf;
         };
     }
-    return _heightIs;
+    return _heightValue;
 }
 
 - (WidthHeightEqualToView)widthRatioToView
@@ -185,18 +197,6 @@
     };
 }
 
-- (Class)getTempCellClass  {
-    // 为了应付SB审核的SB条款 The use of non-public APIs is not permitted on the App Store because it can lead to a poor user experience should these APIs change.
-    static UITableViewCell *tempCell;
-    
-    if (!tempCell) {
-        tempCell = [UITableViewCell new];
-    }
-    Class cellClass = [tempCell.contentView class];
-    return cellClass;
-}
-
-
 - (MarginEqualToView)marginEqualToViewBlockWithKey:(NSString *)key
 {
     __weak typeof(self) weakSelf = self;
@@ -206,59 +206,51 @@
         item.refView = view;
         [weakSelf setValue:item forKey:key];
         weakSelf.lastModelItem = item;
-        if ([view isKindOfClass:[self getTempCellClass]] && ([key isEqualToString:@"equalCenterY"] || [key isEqualToString:@"equalBottom"])) {
-            view.shouldReadjustFrameBeforeStoreCache = YES;
-        }
+
         return weakSelf;
     };
 }
 
-- (MarginEqualToView)leftEqualToView
-{
-    if (!_leftEqualToView) {
-        _leftEqualToView = [self marginEqualToViewBlockWithKey:@"equalLeft"];
+- (MarginEqualToView)left_equalTo {
+    if (!_left_equalTo) {
+        _left_equalTo = [self marginEqualToViewBlockWithKey:@"equalLeft"];
     }
-    return _leftEqualToView;
+    return _left_equalTo;
 }
 
-- (MarginEqualToView)rightEqualToView
-{
-    if (!_rightEqualToView) {
-        _rightEqualToView = [self marginEqualToViewBlockWithKey:@"equalRight"];
+- (MarginEqualToView)right_equalTo {
+    if (!_right_equalTo) {
+        _right_equalTo = [self marginEqualToViewBlockWithKey:@"equalRight"];
     }
-    return _rightEqualToView;
+    return _right_equalTo;
 }
 
-- (MarginEqualToView)topEqualToView
-{
-    if (!_topEqualToView) {
-        _topEqualToView = [self marginEqualToViewBlockWithKey:@"equalTop"];
+- (MarginEqualToView)top_equalTo {
+    if (!_top_equalTo) {
+        _top_equalTo = [self marginEqualToViewBlockWithKey:@"equalTop"];
     }
-    return _topEqualToView;
+    return _top_equalTo;
 }
 
-- (MarginEqualToView)bottomEqualToView
-{
-    if (!_bottomEqualToView) {
-        _bottomEqualToView = [self marginEqualToViewBlockWithKey:@"equalBottom"];
+- (MarginEqualToView)bottom_equalTo {
+    if (!_bottom_equalTo) {
+        _bottom_equalTo = [self marginEqualToViewBlockWithKey:@"equalBottom"];
     }
-    return _bottomEqualToView;
+    return _bottom_equalTo;
 }
 
-- (MarginEqualToView)centerXEqualToView
-{
-    if (!_centerXEqualToView) {
-        _centerXEqualToView = [self marginEqualToViewBlockWithKey:@"equalCenterX"];
+- (MarginEqualToView)centerX_equalTo {
+    if (!_centerX_equalTo) {
+        _centerX_equalTo = [self marginEqualToViewBlockWithKey:@"equalCenterX"];
     }
-    return _centerXEqualToView;
+    return _centerX_equalTo;
 }
 
-- (MarginEqualToView)centerYEqualToView
-{
-    if (!_centerYEqualToView) {
-        _centerYEqualToView = [self marginEqualToViewBlockWithKey:@"equalCenterY"];
+- (MarginEqualToView)centerY_equalTo {
+    if (!_centerY_equalTo) {
+        _centerY_equalTo = [self marginEqualToViewBlockWithKey:@"equalCenterY"];
     }
-    return _centerYEqualToView;
+    return _centerY_equalTo;
 }
 
 
@@ -269,9 +261,9 @@
     return ^(CGFloat value) {
         
         if ([key isEqualToString:@"x"]) {
-            weakSelf.needsAutoResizeView.left_sd = value;
+//            weakSelf.needsAutoResizeView.left_value = value;
         } else if ([key isEqualToString:@"y"]) {
-            weakSelf.needsAutoResizeView.top_sd = value;
+//            weakSelf.needsAutoResizeView.top_value = value;
         } else if ([key isEqualToString:@"centerX"]) {
             weakSelf.centerX = @(value);
         } else if ([key isEqualToString:@"centerY"]) {
@@ -348,11 +340,9 @@
         _spaceToSuperView = ^(UIEdgeInsets insets) {
             UIView *superView = weakSelf.needsAutoResizeView.superview;
             if (superView) {
-                weakSelf.needsAutoResizeView.makeConstraints
-                .leftSpaceToView(superView, insets.left)
-                .topSpaceToView(superView, insets.top)
-                .rightSpaceToView(superView, insets.right)
-                .bottomSpaceToView(superView, insets.bottom);
+                weakSelf.needsAutoResizeView
+                .make.leftValue(superView, insets.left).topValue(superView, insets.top)
+                .rightValue(superView, insets.right).bottomValue(superView, insets.bottom);
             }
         };
     }
@@ -368,7 +358,7 @@
             weakSelf.widthEqualHeight = [XLsn0wConstraintsSizer new];
             weakSelf.lastModelItem = weakSelf.widthEqualHeight;
             // 主动触发一次赋值操作
-            weakSelf.needsAutoResizeView.height_sd = weakSelf.needsAutoResizeView.height_sd;
+//            weakSelf.needsAutoResizeView.height_value = weakSelf.needsAutoResizeView.height_value;
             return weakSelf;
         };
     }
@@ -384,7 +374,7 @@
             weakSelf.heightEqualWidth = [XLsn0wConstraintsSizer new];
             weakSelf.lastModelItem = weakSelf.heightEqualWidth;
             // 主动触发一次赋值操作
-            weakSelf.needsAutoResizeView.width_sd = weakSelf.needsAutoResizeView.width_sd;
+//            weakSelf.needsAutoResizeView.width_value = weakSelf.needsAutoResizeView.width_value;
             return weakSelf;
         };
     }

@@ -1,7 +1,6 @@
 
 #import "UIView+MakeConstraints.h"
-#import "XLsn0wMakeConstraints.h"
-#import "XLsn0wConstraintsMaker.h"
+#import "XLsn0wConstraintLayout.h"
 
 #import <objc/runtime.h>
 
@@ -10,15 +9,13 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
-        NSArray *selStringsArray = @[@"layoutSubviews"];
-        
-        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
-            NSString *mySelString = [@"sd_" stringByAppendingString:selString];
+        [@[@"layoutSubviews"] enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
+            NSString *mySelString = [@"make_" stringByAppendingString:selString];
             
-            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
-            Method myMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
-            method_exchangeImplementations(originalMethod, myMethod);
+            Method appleMethod  = class_getInstanceMethod(self, NSSelectorFromString(selString));
+            Method customMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
+            
+            method_exchangeImplementations(appleMethod, customMethod);
         }];
     });
 }
@@ -79,19 +76,19 @@
     objc_setAssociatedObject(self, @selector(autoWidthRatioValue), autoWidthRatioValue, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (NSNumber *)sd_maxWidth
+- (NSNumber *)maxWidth
 {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setSd_maxWidth:(NSNumber *)sd_maxWidth
+- (void)setMaxWidth:(NSNumber *)maxWidth
 {
-    objc_setAssociatedObject(self, @selector(sd_maxWidth), sd_maxWidth, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(maxWidth), maxWidth, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)useCellFrameCacheWithIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableview {
-    self.sd_indexPath = indexPath;
-    self.sd_tableView = tableview;
+
+    
 }
 
 - (XLsn0wConstraintsMaker *)ownLayoutModel
@@ -104,7 +101,7 @@
     objc_setAssociatedObject(self, @selector(ownLayoutModel), ownLayoutModel, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (XLsn0wConstraintsMaker *)makeConstraints {
+- (XLsn0wConstraintsMaker *)make {
     
 #ifdef SDDebugWithAssert
     NSAssert(self.superview, @"一定要先添加到SuperView才能约束");
@@ -121,17 +118,12 @@
     return model;
 }
 
-- (XLsn0wConstraintsMaker *)sd_resetLayout {
-    /*
-     * 方案待定
-     [self sd_clearAutoLayoutSettings];
-     return [self sd_layout];
-     */
-    
+- (XLsn0wConstraintsMaker *)resetConstraints {
+
     XLsn0wConstraintsMaker *model = [self ownLayoutModel];
     XLsn0wConstraintsMaker *newModel = [XLsn0wConstraintsMaker new];
     newModel.needsAutoResizeView = self;
-    [self sd_clearViewFrameCache];
+    [self clearViewFrameCache];
     NSInteger index = 0;
     if (model) {
         index = [self.superview.autoLayoutModelsArray indexOfObject:model];
@@ -140,35 +132,34 @@
         [self.superview.autoLayoutModelsArray addObject:newModel];
     }
     [self setOwnLayoutModel:newModel];
-    [self sd_clearExtraAutoLayoutItems];
+    [self clearExtraAutoLayoutItems];
     return newModel;
 }
 
-- (XLsn0wConstraintsMaker *)sd_resetNewLayout
-{
-    [self sd_clearAutoLayoutSettings];
-    [self sd_clearExtraAutoLayoutItems];
-    return [self makeConstraints];
+- (XLsn0wConstraintsMaker *)newConstraints {
+    [self clearAutoLayoutSettings];
+    [self clearExtraAutoLayoutItems];
+    return [self make];
 }
 
 
 - (void)removeFromSuperviewAndClearAutoLayoutSettings
 {
-    [self sd_clearAutoLayoutSettings];
+    [self clearAutoLayoutSettings];
     [self removeFromSuperview];
 }
 
-- (void)sd_clearAutoLayoutSettings
+- (void)clearAutoLayoutSettings
 {
     XLsn0wConstraintsMaker *model = [self ownLayoutModel];
     if (model) {
         [self.superview.autoLayoutModelsArray removeObject:model];
         [self setOwnLayoutModel:nil];
     }
-    [self sd_clearExtraAutoLayoutItems];
+    [self clearExtraAutoLayoutItems];
 }
 
-- (void)sd_clearExtraAutoLayoutItems
+- (void)clearExtraAutoLayoutItems
 {
     if (self.autoHeightRatioValue) {
         self.autoHeightRatioValue = nil;
@@ -177,15 +168,12 @@
     self.fixedWidth = nil;
 }
 
-- (void)sd_clearViewFrameCache
+- (void)clearViewFrameCache
 {
     self.frame = CGRectZero;
 }
 
-- (void)sd_clearSubviewsAutoLayoutFrameCaches {
-    if (self.sd_tableView && self.sd_indexPath) {
-        return;
-    }
+- (void)clearSubviewsAutoLayoutFrameCaches {
     
     if (self.autoLayoutModelsArray.count == 0) return;
     
@@ -194,20 +182,17 @@
     }];
 }
 
-- (void)sd_layoutSubviews
-{
-    // 如果程序崩溃在这行代码说明是你的view在执行“layoutSubvies”方法时出了问题而不是在此自动布局库内部出现了问题，请检查你的“layoutSubvies”方法
-    [self sd_layoutSubviews];
-    
-    [self sd_layoutSubviewsHandle];
+- (void)make_layoutSubviews {
+    [self make_layoutSubviews];
+    [self make_layoutSubviewsHandle];
 }
 
-- (void)sd_layoutSubviewsHandle{
+- (void)make_layoutSubviewsHandle{
 
     if (self.sd_equalWidthSubviews.count) {
         __block CGFloat totalMargin = 0;
         [self.sd_equalWidthSubviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            XLsn0wConstraintsMaker *model = view.makeConstraints;
+            XLsn0wConstraintsMaker *model = view.make;
             CGFloat left = model.left ? [model.left.value floatValue] : model.needsAutoResizeView.left_sd;
             totalMargin += (left + [model.right.value floatValue]);
         }];
@@ -233,7 +218,7 @@
                 } else {
                     model.needsAutoResizeView.frame = newFrame;
                 }
-                [self setupCornerRadiusWithView:model.needsAutoResizeView model:model];
+             
             } else {
 
                 [self sd_resizeWithModel:model];
@@ -247,10 +232,8 @@
 - (void)sd_resizeWithModel:(XLsn0wConstraintsMaker *)model
 {
     UIView *view = model.needsAutoResizeView;
-    
-//    if (!view || view.sd_isClosingAutoLayout) return;
-    
-    if (view.sd_maxWidth && (model.rightSpaceToView || model.rightEqualToView)) { // 靠右布局前提设置
+
+    if (view.maxWidth && (model.rightValue || model.right_equalTo)) { // 靠右布局前提设置
   
         view.fixedWidth = @(view.width_sd);
     }
@@ -263,7 +246,7 @@
     
     [self layoutRightWithView:view model:model];
     
-    if (view.autoHeightRatioValue && view.width_sd > 0 && (model.bottomEqualToView || model.bottomSpaceToView)) { // 底部布局前提设置
+    if (view.autoHeightRatioValue && view.width_sd > 0 && (model.bottom_equalTo || model.bottomValue)) { // 底部布局前提设置
 
         view.fixedHeight = @(view.height_sd);
     }
@@ -309,8 +292,6 @@
     }
     
 
-    
-    [self setupCornerRadiusWithView:view model:model];
 }
 
 
@@ -495,23 +476,23 @@
     }
 }
 
-- (void)setupCornerRadiusWithView:(UIView *)view model:(XLsn0wConstraintsMaker *)model {
-    CGFloat cornerRadius = view.layer.cornerRadius;
-    CGFloat newCornerRadius = 0;
-    
-    if (view.sd_cornerRadius && (cornerRadius != [view.sd_cornerRadius floatValue])) {
-        newCornerRadius = [view.sd_cornerRadius floatValue];
-    } else if (view.sd_cornerRadiusFromWidthRatio && (cornerRadius != [view.sd_cornerRadiusFromWidthRatio floatValue] * view.width_sd)) {
-        newCornerRadius = view.width_sd * [view.sd_cornerRadiusFromWidthRatio floatValue];
-    } else if (view.sd_cornerRadiusFromHeightRatio && (cornerRadius != view.height_sd * [view.sd_cornerRadiusFromHeightRatio floatValue])) {
-        newCornerRadius = view.height_sd * [view.sd_cornerRadiusFromHeightRatio floatValue];
-    }
-    
-    if (newCornerRadius > 0) {
-        view.layer.cornerRadius = newCornerRadius;
-        view.clipsToBounds = YES;
-    }
-}
+//- (void)setupCornerRadiusWithView:(UIView *)view model:(XLsn0wConstraintsMaker *)model {
+//    CGFloat cornerRadius = view.layer.cornerRadius;
+//    CGFloat newCornerRadius = 0;
+//
+//    if (view.sd_cornerRadius && (cornerRadius != [view.sd_cornerRadius floatValue])) {
+//        newCornerRadius = [view.sd_cornerRadius floatValue];
+//    } else if (view.sd_cornerRadiusFromWidthRatio && (cornerRadius != [view.sd_cornerRadiusFromWidthRatio floatValue] * view.width_sd)) {
+//        newCornerRadius = view.width_sd * [view.sd_cornerRadiusFromWidthRatio floatValue];
+//    } else if (view.sd_cornerRadiusFromHeightRatio && (cornerRadius != view.height_sd * [view.sd_cornerRadiusFromHeightRatio floatValue])) {
+//        newCornerRadius = view.height_sd * [view.sd_cornerRadiusFromHeightRatio floatValue];
+//    }
+//
+//    if (newCornerRadius > 0) {
+//        view.layer.cornerRadius = newCornerRadius;
+//        view.clipsToBounds = YES;
+//    }
+//}
 
 - (void)addAutoLayoutModel:(XLsn0wConstraintsMaker *)model
 {
@@ -653,134 +634,22 @@
     self.frame = frame;
 }
 
-// 兼容旧版本
 
-- (CGFloat)left
-{
-    return self.left_sd;
-}
-
-- (void)setLeft:(CGFloat)left
-{
-    self.left_sd = left;
-}
-
-- (CGFloat)right
-{
-    return self.right_sd;
-}
-
-- (void)setRight:(CGFloat)right
-{
-    self.right_sd = right;
-}
-
-- (CGFloat)width
-{
-    return self.width_sd;
-}
-
-- (CGFloat)height
-{
-    return self.height_sd;
-}
-
-- (CGFloat)top
-{
-    return self.top_sd;
-}
-
-- (void)setTop:(CGFloat)top
-{
-    self.top_sd = top;
-}
-
-- (CGFloat)bottom
-{
-    return self.bottom_sd;
-}
-
-- (void)setBottom:(CGFloat)bottom
-{
-    self.bottom_sd = bottom;
-}
-
-- (CGFloat)centerX
-{
-    return self.centerX_sd;
-}
-
-- (void)setCenterX:(CGFloat)centerX
-{
-    self.centerX_sd = centerX;
-}
-
-- (CGFloat)centerY
-{
-    return self.centerY_sd;
-}
-
-- (void)setCenterY:(CGFloat)centerY
-{
-    self.centerY_sd = centerY;
-}
-
-- (CGPoint)origin
-{
-    return self.origin_sd;
-}
-
-- (void)setOrigin:(CGPoint)origin
-{
-    self.origin_sd = origin;
-}
-
-- (CGSize)size
-{
-    return self.size_sd;
-}
-
-- (void (^)(CGRect))didFinishAutoLayoutBlock
-{
+- (void (^)(CGRect))didFinishAutoLayoutBlock {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setDidFinishAutoLayoutBlock:(void (^)(CGRect))didFinishAutoLayoutBlock
-{
-    objc_setAssociatedObject(self, @selector(didFinishAutoLayoutBlock), didFinishAutoLayoutBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (NSNumber *)sd_cornerRadius
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_cornerRadius:(NSNumber *)sd_cornerRadius
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadius), sd_cornerRadius, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setDidFinishAutoLayoutBlock:(void (^)(CGRect))didFinishAutoLayoutBlock {
+    objc_setAssociatedObject(self,
+                             @selector(didFinishAutoLayoutBlock),
+                             didFinishAutoLayoutBlock,
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 
-- (NSNumber *)sd_cornerRadiusFromWidthRatio
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setSd_cornerRadiusFromWidthRatio:(NSNumber *)sd_cornerRadiusFromWidthRatio
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromWidthRatio), sd_cornerRadiusFromWidthRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
 
 
-- (NSNumber *)sd_cornerRadiusFromHeightRatio
-{
-    return objc_getAssociatedObject(self, _cmd);
-}
 
-- (void)setSd_cornerRadiusFromHeightRatio:(NSNumber *)sd_cornerRadiusFromHeightRatio
-{
-    objc_setAssociatedObject(self, @selector(sd_cornerRadiusFromHeightRatio), sd_cornerRadiusFromHeightRatio, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
 
 - (NSArray *)sd_equalWidthSubviews
 {
@@ -792,14 +661,6 @@
     objc_setAssociatedObject(self, @selector(sd_equalWidthSubviews), sd_equalWidthSubviews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)sd_addSubviews:(NSArray *)subviews
-{
-    [subviews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        if ([view isKindOfClass:[UIView class]]) {
-            [self addSubview:view];
-        }
-    }];
-}
 
 
 @end
