@@ -86,11 +86,6 @@
     objc_setAssociatedObject(self, @selector(maxWidth), maxWidth, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)useCellFrameCacheWithIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableview {
-
-    
-}
-
 - (XLsn0wConstraintsMaker *)ownLayoutModel
 {
     return objc_getAssociatedObject(self, _cmd);

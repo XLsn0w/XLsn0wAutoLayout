@@ -8,8 +8,11 @@
 
 #import "ViewController.h"
 #import "XLsn0wConstraintLayout.h"
+#import "ConstraintCell.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -17,19 +20,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    UIView *view = [UIView new];
-    [self.view addSubview:view];
-    view.backgroundColor = UIColor.redColor;
-//    view.make.centerX_equalTo(self.view).centerY_equalTo(self.view).widthValue(200).heightValue(200);
-    
-    view.make.leftValue(self.view, 10).topValue(self.view, 200).widthValue(200).heightValue(200);
-    
-
-    
+    [self addTableView];
 }
 
+- (void)addTableView {
+    self.tableView = [UITableView new];
+    [self.view addSubview:self.tableView];
+    self.tableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView registerClass:[ConstraintCell class] forCellReuseIdentifier:@"ConstraintCell"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ConstraintCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConstraintCell"];
+    return cell;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		35BF736A20B92E1B00C9DBB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF736920B92E1B00C9DBB3 /* AppDelegate.m */; };
-		35BF736D20B92E1B00C9DBB3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF736C20B92E1B00C9DBB3 /* ViewController.m */; };
 		35BF737020B92E1B00C9DBB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35BF736E20B92E1B00C9DBB3 /* Main.storyboard */; };
 		35BF737220B92E1C00C9DBB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35BF737120B92E1C00C9DBB3 /* Assets.xcassets */; };
 		35BF737520B92E1C00C9DBB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35BF737320B92E1C00C9DBB3 /* LaunchScreen.storyboard */; };
 		35BF737820B92E1C00C9DBB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF737720B92E1C00C9DBB3 /* main.m */; };
 		35BF738220B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF738120B92E1C00C9DBB3 /* XLsn0wAutoLayoutTests.m */; };
 		35BF738D20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF738C20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m */; };
+		CDAE4F2F20BE84DE005E7AD6 /* ConstraintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAE4F2E20BE84DE005E7AD6 /* ConstraintCell.m */; };
+		CDAE4F3320BE8616005E7AD6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAE4F3220BE8616005E7AD6 /* ViewController.m */; };
+		CDAE4F3520BE8673005E7AD6 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = CDAE4F3420BE8673005E7AD6 /* img.png */; };
 		CDB677AE20BD41FF00726A17 /* UIView+MakeConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */; };
 		CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB677B320BD44BB00726A17 /* XLsn0wConstraintsMaker.m */; };
 /* End PBXBuildFile section */
@@ -41,7 +43,6 @@
 		35BF736820B92E1B00C9DBB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		35BF736920B92E1B00C9DBB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		35BF736B20B92E1B00C9DBB3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		35BF736C20B92E1B00C9DBB3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		35BF736F20B92E1B00C9DBB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		35BF737120B92E1C00C9DBB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35BF737420B92E1C00C9DBB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +54,10 @@
 		35BF738820B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XLsn0wAutoLayoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35BF738C20B92E1C00C9DBB3 /* XLsn0wAutoLayoutUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLsn0wAutoLayoutUITests.m; sourceTree = "<group>"; };
 		35BF738E20B92E1C00C9DBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDAE4F2D20BE84DE005E7AD6 /* ConstraintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintCell.h; sourceTree = "<group>"; };
+		CDAE4F2E20BE84DE005E7AD6 /* ConstraintCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstraintCell.m; sourceTree = "<group>"; };
+		CDAE4F3220BE8616005E7AD6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CDAE4F3420BE8673005E7AD6 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
 		CDB677AC20BD41FE00726A17 /* UIView+MakeConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MakeConstraints.h"; sourceTree = "<group>"; };
 		CDB677AD20BD41FF00726A17 /* UIView+MakeConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MakeConstraints.m"; sourceTree = "<group>"; };
 		CDB677B220BD44BB00726A17 /* XLsn0wConstraintsMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLsn0wConstraintsMaker.h; sourceTree = "<group>"; };
@@ -112,7 +117,10 @@
 				35BF736820B92E1B00C9DBB3 /* AppDelegate.h */,
 				35BF736920B92E1B00C9DBB3 /* AppDelegate.m */,
 				35BF736B20B92E1B00C9DBB3 /* ViewController.h */,
-				35BF736C20B92E1B00C9DBB3 /* ViewController.m */,
+				CDAE4F3220BE8616005E7AD6 /* ViewController.m */,
+				CDAE4F2D20BE84DE005E7AD6 /* ConstraintCell.h */,
+				CDAE4F2E20BE84DE005E7AD6 /* ConstraintCell.m */,
+				CDAE4F3420BE8673005E7AD6 /* img.png */,
 				35BF736E20B92E1B00C9DBB3 /* Main.storyboard */,
 				35BF737120B92E1C00C9DBB3 /* Assets.xcassets */,
 				35BF737320B92E1C00C9DBB3 /* LaunchScreen.storyboard */,
@@ -272,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35BF737520B92E1C00C9DBB3 /* LaunchScreen.storyboard in Resources */,
+				CDAE4F3520BE8673005E7AD6 /* img.png in Resources */,
 				35BF737220B92E1C00C9DBB3 /* Assets.xcassets in Resources */,
 				35BF737020B92E1B00C9DBB3 /* Main.storyboard in Resources */,
 			);
@@ -298,7 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35BF736D20B92E1B00C9DBB3 /* ViewController.m in Sources */,
+				CDAE4F3320BE8616005E7AD6 /* ViewController.m in Sources */,
+				CDAE4F2F20BE84DE005E7AD6 /* ConstraintCell.m in Sources */,
 				35BF737820B92E1C00C9DBB3 /* main.m in Sources */,
 				CDB677B420BD44BB00726A17 /* XLsn0wConstraintsMaker.m in Sources */,
 				35BF736A20B92E1B00C9DBB3 /* AppDelegate.m in Sources */,

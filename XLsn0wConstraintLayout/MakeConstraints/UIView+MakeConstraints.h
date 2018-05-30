@@ -14,26 +14,14 @@
 - (XLsn0wConstraintsMaker *)newConstraints;
 
 
-/** 从父view移除并清空约束  */
 - (void)removeFromSuperviewAndClearAutoLayoutSettings;
-
-/** 清空之前的自动布局设置  */
 - (void)clearAutoLayoutSettings;
-
-/** 将自身frame清零（一般在cell内部控件重用前调用）  */
 - (void)clearViewFrameCache;
-
-/** 将自己的需要自动布局的subviews的frame(或者frame缓存)清零  */
 - (void)clearSubviewsAutoLayoutFrameCaches;
 
-/** 设置固定宽度保证宽度不在自动布局过程再做中调整  */
+
 @property (nonatomic, strong) NSNumber *fixedWidth;
-
-/** 设置固定高度保证高度不在自动布局过程中再做调整  */
 @property (nonatomic, strong) NSNumber *fixedHeight;
-
-/** 启用cell frame缓存（可以提高cell滚动的流畅度, 目前为cell专用方法，后期会扩展到其他view） */
-- (void)useCellFrameCacheWithIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableview;
 
 
 - (NSMutableArray *)autoLayoutModelsArray;
