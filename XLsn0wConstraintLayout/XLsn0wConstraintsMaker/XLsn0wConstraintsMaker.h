@@ -2,6 +2,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define left_scale   ([UIScreen mainScreen].bounds.size.width  / 375)
+#define right_scale  ([UIScreen mainScreen].bounds.size.width  / 375)
+
+#define top_scale    ([UIScreen mainScreen].bounds.size.height / 667)
+#define bottom_scale ([UIScreen mainScreen].bounds.size.height / 667)
+
 @interface XLsn0wConstraintsSizer : NSObject
 
 @property (nonatomic, strong) NSNumber *value;

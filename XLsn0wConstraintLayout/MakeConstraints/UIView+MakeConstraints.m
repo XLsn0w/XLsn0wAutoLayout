@@ -10,10 +10,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [@[@"layoutSubviews"] enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
-            NSString *mySelString = [@"make_" stringByAppendingString:selString];
-            
             Method appleMethod  = class_getInstanceMethod(self, NSSelectorFromString(selString));
-            Method customMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
+            Method customMethod = class_getInstanceMethod(self, NSSelectorFromString(@"method_exchange_layoutSubviews"));
             
             method_exchangeImplementations(appleMethod, customMethod);
         }];
@@ -99,7 +97,7 @@
 - (XLsn0wConstraintsMaker *)make {
     
 #ifdef SDDebugWithAssert
-    NSAssert(self.superview, @"一定要先添加到SuperView才能约束");
+    NSAssert(self.superview, @"the view must add to superview");
 #endif
     
     XLsn0wConstraintsMaker *model = [self ownLayoutModel];
@@ -177,12 +175,12 @@
     }];
 }
 
-- (void)make_layoutSubviews {
-    [self make_layoutSubviews];
-    [self make_layoutSubviewsHandle];
+- (void)method_exchange_layoutSubviews {
+    [self method_exchange_layoutSubviews];
+    [self makeConstraintLayoutSubviews];
 }
 
-- (void)make_layoutSubviewsHandle{
+- (void)makeConstraintLayoutSubviews {
 
     if (self.sd_equalWidthSubviews.count) {
         __block CGFloat totalMargin = 0;

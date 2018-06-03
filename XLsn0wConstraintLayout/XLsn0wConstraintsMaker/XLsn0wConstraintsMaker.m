@@ -332,8 +332,7 @@
     return _autoWidthRatio;
 }
 
-- (SpaceToSuperView)spaceToSuperView
-{
+- (SpaceToSuperView)spaceToSuperView {
     __weak typeof(self) weakSelf = self;
     
     if (!_spaceToSuperView) {
@@ -341,8 +340,8 @@
             UIView *superView = weakSelf.needsAutoResizeView.superview;
             if (superView) {
                 weakSelf.needsAutoResizeView
-                .make.leftValue(superView, insets.left).topValue(superView, insets.top)
-                .rightValue(superView, insets.right).bottomValue(superView, insets.bottom);
+                .make.leftValue(superView, insets.left*left_scale).topValue(superView, insets.top*top_scale)
+                .rightValue(superView, insets.right*right_scale).bottomValue(superView, insets.bottom*bottom_scale);
             }
         };
     }
