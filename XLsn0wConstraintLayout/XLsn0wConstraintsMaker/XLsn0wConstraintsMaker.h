@@ -2,11 +2,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define left_scale   ([UIScreen mainScreen].bounds.size.width  / 375)
-#define right_scale  ([UIScreen mainScreen].bounds.size.width  / 375)
-
-#define top_scale    ([UIScreen mainScreen].bounds.size.height / 667)
-#define bottom_scale ([UIScreen mainScreen].bounds.size.height / 667)
+/// 以4.7-inch iPhone 7 设置屏幕比例
+#define   left_scale     ([UIScreen mainScreen].bounds.size.width  / 375)///左边距*当前屏幕宽度比例
+#define   right_scale    ([UIScreen mainScreen].bounds.size.width  / 375)///右边距*当前屏幕宽度比例
+/************************************************************************///
+#define   top_scale      ([UIScreen mainScreen].bounds.size.height / 667)///上边距*当前屏幕高度比例
+#define   bottom_scale   ([UIScreen mainScreen].bounds.size.height / 667)///下边距*当前屏幕高度比例
 
 @interface XLsn0wConstraintsSizer : NSObject
 
